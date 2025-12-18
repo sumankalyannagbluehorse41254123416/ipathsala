@@ -84,7 +84,7 @@ button:focus {
 
 a:focus,
 a:hover {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 i,
@@ -109,10 +109,11 @@ h4,
 h5,
 h6 {
   font-family: "Exo", sans-serif;
-  font-weight: 700;
+  font-weight: 700 !important;
   color: #07294D;
   margin: 0px;
 }
+
 
 h1 {
   font-size: 48px;
@@ -1105,12 +1106,12 @@ p {
 }
 
 .navigation .nav-menus-wrapper .nav-menu li+li {
-  margin-left: 26px;
+  margin-left: 20px;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .navigation .nav-menus-wrapper .nav-menu li+li {
-    margin-left: 24px;
+    margin-left: 8px;
   }
 }
 
@@ -1140,7 +1141,7 @@ p {
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .navigation .nav-menus-wrapper .nav-menu li a {
-    font-size: 13px;
+    font-size: 10px;
   }
 }
 
@@ -1560,7 +1561,7 @@ p {
   /*padding-top: 155px;*/
   padding-top: 55px;
 }
-
+/* 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .slider-area {
     padding-top: 155px;
@@ -1571,7 +1572,7 @@ p {
   .slider-area {
     padding-top: 68px;
   }
-}
+} */
 
 @media only screen and (min-width: 576px) and (max-width: 767px) {
   .slider-area {

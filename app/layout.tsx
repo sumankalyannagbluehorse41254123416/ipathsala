@@ -8,6 +8,8 @@ import "../public/styles/style.css";
 import "../public/styles/slick.css";
 import "../public/styles/maggnific-popup.css";
 import "../public/styles/fontawesome.min.css";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
 import "../public/styles/default.css";
 import "../public/styles/chat-tool.css";
 import "../public/styles/bootstrap.min.css";

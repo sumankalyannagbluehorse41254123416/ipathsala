@@ -75,7 +75,7 @@ export default async function TopCourses() {
                       <a
                         className="more"
                         href={`/software-courses/${course.slug}`}>
-                        Read more <i className="fal fa-chevron-right"></i>
+                        Read more <i className="fa fa-chevron-right"></i>
                       </a>
                     </div>
                   </div>

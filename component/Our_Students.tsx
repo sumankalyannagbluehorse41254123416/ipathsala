@@ -3,6 +3,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Testimonials() {
   const reviews = [
@@ -62,7 +63,7 @@ export default function Testimonials() {
               <div className="testimonials-imatestimonials-image slick-initialized slick-sliderge">
                 {/* Swiper Navigation Button */}
                 <span className="next slick-arrow swiper-button-next">
-                  Next <i className="far fa-long-arrow-right"></i>
+                  Next <i className="fa-solid fa-arrow-right-long"></i>
                 </span>
 
                 <Swiper
@@ -78,8 +79,8 @@ export default function Testimonials() {
                         <Image
                           src={student.img}
                           alt={student.name}
-                          width={350}
-                          height={500}
+                          width={250}
+                          height={400}
                         />
                         <div className="content-meta tesConMeta">
                           <p className="name">{student.name}</p>

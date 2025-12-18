@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function HomeSlider() {
   const slides = [
     {
@@ -25,7 +25,7 @@ export default function HomeSlider() {
   ];
 
   return (
-    <section className="slider-area slider-03 slider-active">
+    <section className="slider-area slider-03 slider-active" style={{position:"relative"}}>
       <Swiper
         modules={[Navigation, Autoplay]}
         navigation={{
