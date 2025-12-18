@@ -232,10 +232,10 @@
 
 "use client";
 
+import { submitFormData } from "@/lib/contact";
 import { fetchPageData } from "@/lib/page";
 import { useEffect, useState } from "react";
-
-/* ================= API TYPES ================= */
+import { toast } from "react-toastify";
 
 interface ApiSubsection {
   id: number;
@@ -263,6 +263,86 @@ const ContactPage: React.FC = () => {
   const [pageData, setPageData] = useState<Page | null>(null);
   const [sections, setSections] = useState<ApiSection[]>([]);
   const [loading, setLoading] = useState(true);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  });
+
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
+  };
+  const validateForm = () => {
+    const newErrors = {
+      name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
+    };
+    let isValid = true;
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+      isValid = false;
+    }
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+      isValid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Enter a valid email address";
+      isValid = false;
+    }
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Phone is required";
+      isValid = false;
+    }
+    if (!formData.subject.trim()) {
+      newErrors.subject = "Subject is required";
+      isValid = false;
+    }
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
+      isValid = false;
+    }
+    setErrors(newErrors);
+    return isValid;
+  };
+  const handleSubmit = async () => {
+    try {
+      if (isSubmitting) {
+        return;
+      }
+      setIsSubmitting(true);
+      const isValid = validateForm();
+      if (!isValid) {
+        setIsSubmitting(false);
+        return;
+      }
+      const response = await submitFormData(
+        {},
+        "e6adee7e-5715-4814-9f94-537e460110b4",
+        formData
+      );
+    } catch (error: any) {
+      console.error("Error submitting form:", error);
+      toast.error("Your message could not be sent. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     const loadPage = async () => {
@@ -325,31 +405,67 @@ const ContactPage: React.FC = () => {
         <div className="row justify-content-center">
           <div className="col-lg-8">
             <div className="contact-form-wrapper">
-              <form
-                action="https://www.ipathsala.com/contact-us/save"
-                method="post">
+              <form onSubmit={(e) => e.preventDefault()}>
                 <div className="row">
                   <div className="col-md-6">
                     <div className="single-form">
-                      <input type="text" name="name" placeholder="Name" />
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="Name"
+                        value={formData.name}
+                        onChange={handleChange}
+                      />
+                      {errors.name && (
+                        <span className="text-danger">{errors.name}</span>
+                      )}
                     </div>
                   </div>
 
                   <div className="col-md-6">
                     <div className="single-form">
-                      <input type="email" name="email" placeholder="E-mail" />
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="E-mail"
+                        value={formData.email}
+                        onChange={handleChange}
+                      />
+                      {errors.email && (
+                        <span className="text-danger">{errors.email}</span>
+                      )}
                     </div>
                   </div>
 
                   <div className="col-md-6">
                     <div className="single-form">
-                      <input type="text" name="phone" placeholder="Phone" />
+                      <input
+                        type="text"
+                        name="phone"
+                        placeholder="Phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                      />
+
+                      {errors.phone && (
+                        <span className="text-danger">{errors.phone}</span>
+                      )}
                     </div>
                   </div>
 
                   <div className="col-md-6">
                     <div className="single-form">
-                      <input type="text" name="subject" placeholder="Subject" />
+                      <input
+                        type="text"
+                        name="subject"
+                        placeholder="Subject"
+                        value={formData.subject}
+                        onChange={handleChange}
+                      />
+
+                      {errors.subject && (
+                        <span className="text-danger">{errors.subject}</span>
+                      )}
                     </div>
                   </div>
 
@@ -357,13 +473,23 @@ const ContactPage: React.FC = () => {
                     <div className="single-form">
                       <textarea
                         name="message"
-                        placeholder="Write here..."></textarea>
+                        placeholder="Write here..."
+                        value={formData.message}
+                        onChange={handleChange as any}
+                      />
+                      {errors.message && (
+                        <span className="text-danger">{errors.message}</span>
+                      )}
                     </div>
                   </div>
 
                   <div className="col-md-12">
                     <div className="single-form text-center">
-                      <button type="submit" className="main-btn">
+                      <button
+                        type="submit"
+                        className="main-btn"
+                        onClick={handleSubmit}
+                        disabled={isSubmitting}>
                         Submit now
                       </button>
                     </div>
