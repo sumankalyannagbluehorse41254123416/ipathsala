@@ -1,7 +1,19 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
+import FooterWithChat from "@/component/Footer";
+import Header from "@/component/Header";
+// Style
+import "../public/styles/style.css";
+import "../public/styles/slick.css";
+import "../public/styles/maggnific-popup.css";
+import "../public/styles/fontawesome.min.css";
+import "../public/styles/default.css";
+import "../public/styles/chat-tool.css";
+import "../public/styles/bootstrap.min.css";
+import "../public/styles/animate.css";
+import Newsletter from "@/component/Newsletter";
+import { ToastContainer } from "react-toastify";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -24,8 +36,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        />
+      </head>
+
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <ToastContainer
+          position="top-center"
+          autoClose={4000}
+          style={{ zIndex: "9999" }}
+        />
+        <Header />
         {children}
+        <Newsletter />
+        <FooterWithChat />
       </body>
     </html>
   );

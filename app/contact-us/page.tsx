@@ -1,0 +1,412 @@
+// "use client";
+// import { fetchPageData } from "@/lib/page";
+// import { useEffect, useState } from "react";
+
+// interface Subsection {
+//   id: number;
+//   title: string;
+//   description?: string;
+//   image?: string;
+//   slug?: string;
+// }
+// interface Page {
+//   title: string;
+//   cover_image_url?: string;
+//   shortDescription?: string;
+//   description: string;
+//   subsections: Subsection[];
+// }
+// const ContactPage: React.FC = () => {
+//   const UID = "1ff79d11-fed9-45e9-8a1d-b919c4363653";
+
+//   const [pageData, setPageData] = useState<Page | null>(null);
+//   const [sectionData, setSectionData] = useState<Page | null>(null);
+//   const [loading, setLoading] = useState(true);
+
+//   useEffect(() => {
+//     const loadPage = async () => {
+//       try {
+//         const res = await fetchPageData({ uid: UID });
+//         setPageData(res?.pagedata);
+//         setSectionData(pageData?.pageItemdataWithSubsection);
+//         console.log("res*********************", sectionData);
+//       } catch (err) {
+//         console.error("Failed to load page", err);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     loadPage();
+//   }, []);
+
+//   return (
+//     <>
+//       <div className="clearfix"></div>
+
+//       {/* Banner Section */}
+//       <section className="page-banner">
+//         <div
+//           className="page-banner-bg bg_cover1"
+//           style={{
+//             backgroundImage: `url(${pageData?.cover_image_url})`,
+//           }}>
+//           <div className="container">
+//             <div className="banner-content text-center">
+//               <h2 className="title">{pageData?.title}</h2>
+//             </div>
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* Contact Form Section */}
+//       <div className="contact-form">
+//         <div className="row justify-content-center">
+//           <div className="col-lg-8">
+//             <div className="contact-title text-center">
+//               <h3 className="title">Leave a message here</h3>
+//               <p>
+//                 Ipathsala - Best Educational Environment. You can contact us
+//                 24X7. We are always happy to help and our expert team will
+//                 provide you proper guidance.
+//               </p>
+//             </div>
+//           </div>
+//         </div>
+
+//         <div className="row justify-content-center">
+//           <div className="col-lg-8">
+//             <div className="contact-form-wrapper">
+//               <form
+//                 action="https://www.ipathsala.com/contact-us/save"
+//                 method="post">
+//                 <input
+//                   type="hidden"
+//                   name="_token"
+//                   value="V8u2eqU4H7sbQo85aaP1KoabpPhkRiFNyfByf6au"
+//                 />
+
+//                 <div className="row">
+//                   <div className="col-md-6">
+//                     <div className="single-form">
+//                       <input
+//                         type="text"
+//                         name="name"
+//                         id="name"
+//                         placeholder="Name"
+//                       />
+//                       <span id="nameErr" style={{ color: "red" }}></span>
+//                     </div>
+//                   </div>
+
+//                   <div className="col-md-6">
+//                     <div className="single-form">
+//                       <input
+//                         type="email"
+//                         name="email"
+//                         id="email"
+//                         placeholder="E-mail"
+//                       />
+//                       <span id="emailErr" style={{ color: "red" }}></span>
+//                     </div>
+//                   </div>
+
+//                   <div className="col-md-6">
+//                     <div className="single-form">
+//                       <input
+//                         type="text"
+//                         name="phone"
+//                         id="mobile"
+//                         placeholder="Phone"
+//                       />
+//                       <span id="mobileErr" style={{ color: "red" }}></span>
+//                     </div>
+//                   </div>
+
+//                   <div className="col-md-6">
+//                     <div className="single-form">
+//                       <input
+//                         type="text"
+//                         name="subject"
+//                         id="subject"
+//                         placeholder="Subject"
+//                       />
+//                       <span id="subjectErr" style={{ color: "red" }}></span>
+//                     </div>
+//                   </div>
+
+//                   <div className="col-md-12">
+//                     <div className="single-form">
+//                       <textarea
+//                         name="message"
+//                         id="message"
+//                         placeholder="Write here..."></textarea>
+//                       <span id="messageErr" style={{ color: "red" }}></span>
+//                     </div>
+//                   </div>
+
+//                   {/* reCAPTCHA */}
+
+//                   {/* Submit Button */}
+//                   <div className="col-md-12">
+//                     <div className="single-form text-center">
+//                       <button type="button" id="submitBtn" className="main-btn">
+//                         Submit now
+//                       </button>
+//                     </div>
+//                   </div>
+//                 </div>
+//               </form>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Contact Details Section */}
+//       <section className="contact-area">
+//         <div className="container">
+//           <div className="row">
+//             {/* Address */}
+//             <div className="col-md-4">
+//               <div className="single-contact-info mt-30">
+//                 <div className="info-icon">
+//                   <i className="fas fa-map-marker-alt"></i>
+//                 </div>
+//                 <div className="info-content">
+//                   <h5 className="title">Address</h5>
+//                   <p>
+//                     2nd Floor of ZBRDST Express B/8, Aurobindo Nagar, Judge
+//                     Court Road, Midnapore - 721101
+//                   </p>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Phone */}
+//             <div className="col-md-4">
+//               <div className="single-contact-info mt-30">
+//                 <div className="info-icon">
+//                   <i className="fas fa-phone"></i>
+//                 </div>
+//                 <div className="info-content">
+//                   <h5 className="title">Phone</h5>
+//                   <p>
+//                     <a href="tel:+9339146656">93391 46656</a>
+//                   </p>
+//                   <p>
+//                     <a href="tel:+97047522203">70475 22203</a>
+//                   </p>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Web */}
+//             <div className="col-md-4">
+//               <div className="single-contact-info mt-30">
+//                 <div className="info-icon">
+//                   <i className="fas fa-globe"></i>
+//                 </div>
+//                 <div className="info-content">
+//                   <h5 className="title">Web</h5>
+//                   <p>
+//                     <a href="mailto:ipathsala.academy@gmail.com">
+//                       ipathsala.academy@gmail.com
+//                     </a>
+//                   </p>
+//                   <p>
+//                     <a href="http://www.ipathsala.com">
+//                       http://www.ipathsala.com
+//                     </a>
+//                   </p>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </section>
+//     </>
+//   );
+// };
+
+// export default ContactPage;
+
+"use client";
+
+import { fetchPageData } from "@/lib/page";
+import { useEffect, useState } from "react";
+
+/* ================= API TYPES ================= */
+
+interface ApiSubsection {
+  id: number;
+  title: string;
+  shortDescription?: string;
+}
+
+interface ApiSection {
+  id: number;
+  title: string;
+  shortDescription?: string;
+  section_sequence: number;
+  subsections: ApiSubsection[];
+}
+
+interface Page {
+  title: string;
+  cover_image_url?: string;
+  description?: string;
+}
+
+const ContactPage: React.FC = () => {
+  const UID = "1ff79d11-fed9-45e9-8a1d-b919c4363653";
+
+  const [pageData, setPageData] = useState<Page | null>(null);
+  const [sections, setSections] = useState<ApiSection[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadPage = async () => {
+      try {
+        const res = await fetchPageData({ uid: UID });
+
+        setPageData(res?.pagedata ?? null);
+
+        const items = res?.pageItemdataWithSubsection ?? [];
+        setSections(items as any);
+      } catch (error) {
+        console.error("Failed to load page data", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadPage();
+  }, []);
+
+  if (loading) {
+    return <p className="text-center mt-5">Loading...</p>;
+  }
+
+  return (
+    <>
+      <div className="clearfix"></div>
+
+      <section className="page-banner">
+        <div
+          className="page-banner-bg bg_cover1"
+          style={{
+            backgroundImage: pageData?.cover_image_url
+              ? `url(${pageData.cover_image_url})`
+              : undefined,
+          }}>
+          <div className="container">
+            <div className="banner-content text-center">
+              <h2 className="title">{pageData?.title}</h2>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="contact-form">
+        <div className="row justify-content-center">
+          <div className="col-lg-8">
+            <div className="contact-title text-center">
+              <h3 className="title">{sections[0]?.title}</h3>
+
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: sections[0]?.shortDescription || "",
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="row justify-content-center">
+          <div className="col-lg-8">
+            <div className="contact-form-wrapper">
+              <form
+                action="https://www.ipathsala.com/contact-us/save"
+                method="post">
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="single-form">
+                      <input type="text" name="name" placeholder="Name" />
+                    </div>
+                  </div>
+
+                  <div className="col-md-6">
+                    <div className="single-form">
+                      <input type="email" name="email" placeholder="E-mail" />
+                    </div>
+                  </div>
+
+                  <div className="col-md-6">
+                    <div className="single-form">
+                      <input type="text" name="phone" placeholder="Phone" />
+                    </div>
+                  </div>
+
+                  <div className="col-md-6">
+                    <div className="single-form">
+                      <input type="text" name="subject" placeholder="Subject" />
+                    </div>
+                  </div>
+
+                  <div className="col-md-12">
+                    <div className="single-form">
+                      <textarea
+                        name="message"
+                        placeholder="Write here..."></textarea>
+                    </div>
+                  </div>
+
+                  <div className="col-md-12">
+                    <div className="single-form text-center">
+                      <button type="submit" className="main-btn">
+                        Submit now
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ================= CONTACT INFO ================= */}
+      <section className="contact-area">
+        <div className="container">
+          <div className="row">
+            {sections.slice(1).map((item) => (
+              <div className="col-md-4" key={item.id}>
+                <div className="single-contact-info mt-30">
+                  <div className="info-icon">
+                    {item.title === "Address" && (
+                      <i className="fas fa-map-marker-alt"></i>
+                    )}
+                    {item.title === "Phone" && <i className="fas fa-phone"></i>}
+                    {item.title === "Web" && <i className="fas fa-globe"></i>}
+                  </div>
+
+                  <div className="info-content">
+                    <h5 className="title">{item.title}</h5>
+
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: item.shortDescription || "",
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default ContactPage;
