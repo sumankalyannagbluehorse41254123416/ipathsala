@@ -1,113 +1,201 @@
 "use client";
 
-import { submitFormData } from "@/lib/contact";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import Image from "next/image";
 import { toast } from "react-toastify";
+import { submitFormData } from "@/lib/contact";
 
-interface NewsletterProps {
-  title?: string;
-  description?: string;
-}
+const ContactFormSection: React.FC = () => {
+  const [formData, setFormData] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    message: "",
+  });
 
-const Newsletter: React.FC<NewsletterProps> = ({
-  title = "Newsletter",
-  description = "Enter your email address below to subscribe to my newsletter",
-}) => {
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    message: "",
+  });
 
-  const validateEmail = (email: string) => {
-    return /^[A-Za-z0-9._%+-]+@[A-Za-z][A-Za-z0-9.-]+\.[A-Za-z]{2,}$/i.test(
-      email
-    );
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
-  const handleSubscribe = async () => {
-    setMessage("");
-    setError("");
+  const validateForm = () => {
+    const newErrors = {
+      firstname: "",
+      lastname: "",
+      email: "",
+      message: "",
+    };
+    let isValid = true;
 
-    if (!email.trim()) {
-      setError("Email field is required.");
-      return;
+    if (!formData.firstname.trim()) {
+      newErrors.firstname = "First name is required";
+      isValid = false;
+    }
+    if (!formData.lastname.trim()) {
+      newErrors.lastname = "Last name is required";
+      isValid = false;
+    }
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+      isValid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Enter a valid email address";
+      isValid = false;
+    }
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
+      isValid = false;
     }
 
-    if (!validateEmail(email)) {
-      setError("Please enter a valid email address.");
-      return;
-    }
+    setErrors(newErrors);
+    return isValid;
+  };
 
+  const handleSubmit = async () => {
     try {
-      const newsletterData = { Email: email };
+      if (isSubmitting) return; // prevent double-click
+      setIsSubmitting(true);
+
+      const isValid = validateForm();
+      if (!isValid) {
+        setIsSubmitting(false);
+        return;
+      }
       const response = await submitFormData(
         {},
-        "ed6683b6-181f-4e1d-8e59-988380cfb8d9",
-        newsletterData
+        "3fc09a5c-2a61-43ba-bb15-af00aa92e70a",
+        formData
       );
 
-      if (response?.success) {
-        toast.success("Your email has been sent successfully!");
-        setMessage("Thank you for subscribing!");
-        setEmail("");
-      }
+      toast.success("Your message has been sent successfully!");
+      setFormData({
+        firstname: "",
+        lastname: "",
+        email: "",
+        message: "",
+      });
     } catch (error: any) {
       console.error("Error submitting form:", error);
-      toast.error("Your email could not be sent. Please try again.");
-      setError("Your email could not be sent. Please try again.");
+      toast.error("Your message could not be sent. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
-
-  useEffect(() => {
-    if (message || error) {
-      const timer = setTimeout(() => {
-        setMessage("");
-        setError("");
-      }, 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [message, error]);
+  // setTimeout(() => {
+  //   setErrors({ firstname: "", lastname: "", email: "", message: "" });
+  // }, 4000);
 
   return (
-    <div className="sidebar-widget newsletter">
-      <div className="sidebar-title">
-        <h3>
-          <span className="icon flaticon-rss-symbol"></span> {title}
-        </h3>
+    <div className="row form-outer">
+      {/* Left Side */}
+      <div className="image-column col-lg-6 col-md-12 col-sm-12 con_item">
+        <div className="layer-image">
+          <Image
+            src="/images/contactus/Amficslogo.png"
+            alt="Amfics Logo"
+            width={300}
+            height={300}
+            className="img-fluid"
+          />
+        </div>
       </div>
 
-      <p>{description}</p>
+      {/* Right Side */}
+      <div className="form-column col-lg-6 col-md-12 col-sm-12">
+        <div className="default-form contact-form">
+          <div className="title contact_text text-center mb-4">
+            <h4>Contact Us</h4>
+          </div>
 
-      <form id="newsletterForm" onSubmit={(e) => e.preventDefault()}>
-        <div className="form-group">
-          <input
-            type="email"
-            name="email"
-            id="newsletterEmail"
-            placeholder="Your email address..."
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <form id="contact-form" onSubmit={(e) => e.preventDefault()}>
+            <div className="row mid-spacing">
+              {/* First Name */}
+              <div className="form-group col-lg-6 col-md-6 col-sm-12">
+                <input
+                  type="text"
+                  name="firstname"
+                  placeholder="First Name"
+                  value={formData.firstname}
+                  onChange={handleChange}
+                  className="form-control"
+                />
+                {errors.firstname && (
+                  <span className="text-danger">{errors.firstname}</span>
+                )}
+              </div>
 
-          <button type="button" className="theme-btn" onClick={handleSubscribe}>
-            <span className="btn-title">Subscribe</span>
-          </button>
+              {/* Last Name */}
+              <div className="form-group col-lg-6 col-md-6 col-sm-12">
+                <input
+                  type="text"
+                  name="lastname"
+                  placeholder="Last Name"
+                  value={formData.lastname}
+                  onChange={handleChange}
+                  className="form-control"
+                />
+                {errors.lastname && (
+                  <span className="text-danger">{errors.lastname}</span>
+                )}
+              </div>
 
-          {/* Inline Messages */}
-          {message && (
-            <div className="msgblog text-success text-center contact-gap">
-              {message}
+              {/* Email */}
+              <div className="form-group col-lg-12 col-md-6 col-sm-12">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="form-control"
+                />
+                {errors.email && (
+                  <span className="text-danger">{errors.email}</span>
+                )}
+              </div>
+
+              {/* Message */}
+              <div className="form-group col-lg-12 col-md-12 col-sm-12">
+                <textarea
+                  name="message"
+                  placeholder="Message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  className="form-control"
+                />
+                {errors.message && (
+                  <span className="text-danger">{errors.message}</span>
+                )}
+              </div>
+
+              {/* Button */}
+              <div className="form-group col-lg-12 col-md-12 col-sm-12">
+                <button
+                  type="button"
+                  className="theme-btn btn-style-four"
+                  onClick={handleSubmit}
+                  disabled={isSubmitting}>
+                  {isSubmitting ? "Sending..." : "Send Message"}
+                </button>
+              </div>
             </div>
-          )}
-          {error && (
-            <div className="msgblog text-danger text-center contact-gap">
-              {error}
-            </div>
-          )}
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   );
 };
 
-export default Newsletter;
+export default ContactFormSection;

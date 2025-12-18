@@ -66,11 +66,11 @@ const Newsletter: React.FC<NewsletterProps> = () => {
             <div className="col-lg-5">
               <div className="section-title-2 mt-25">
                 <h2 className="title">Subscribe our Newsletter</h2>
-                <span className="line">
+                <span className="line"></span>
+                <p>
                   Get actionable career-building advice and updates on new
                   educational programs straight to your inbox.
-                </span>
-                <p></p>
+                </p>
               </div>
             </div>
 
