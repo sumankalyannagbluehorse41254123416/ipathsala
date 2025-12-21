@@ -86,6 +86,6 @@ export async function submitFormData(
       status: error.response?.status,
       data: error.response?.data,
     });
-    throw new Error("Failed to submit form.");
+    throw error;
   }
 }

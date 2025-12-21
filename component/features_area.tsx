@@ -7,7 +7,7 @@ export default async function FeaturesSection() {
   // console.log("res*****", res);
   const data = res?.pagedata;
   const sectionData = res?.pageItemdataWithSubsection as any;
-  console.log("sectionData", sectionData);
+  // console.log("sectionData", sectionData);
 
   return (
     <div className="features-area-2">
