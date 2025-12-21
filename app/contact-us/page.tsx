@@ -320,23 +320,32 @@ const ContactPage: React.FC = () => {
     setErrors(newErrors);
     return isValid;
   };
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isSubmitting) return;
+
+    const isValid = validateForm();
+    if (!isValid) return;
+
     try {
-      if (isSubmitting) {
-        return;
-      }
       setIsSubmitting(true);
-      const isValid = validateForm();
-      if (!isValid) {
-        setIsSubmitting(false);
-        return;
-      }
-      const response = await submitFormData(
+
+      await submitFormData(
         {},
         "e6adee7e-5715-4814-9f94-537e460110b4",
         formData
       );
-    } catch (error: any) {
+
+      toast.success("Feedback submitted successfully!");
+
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
       console.error("Error submitting form:", error);
       toast.error("Your message could not be sent. Please try again.");
     } finally {
@@ -355,6 +364,7 @@ const ContactPage: React.FC = () => {
         setSections(items as any);
       } catch (error) {
         console.error("Failed to load page data", error);
+        console.log(error);
       } finally {
         setLoading(false);
       }
@@ -405,7 +415,7 @@ const ContactPage: React.FC = () => {
         <div className="row justify-content-center">
           <div className="col-lg-8">
             <div className="contact-form-wrapper">
-              <form onSubmit={(e) => e.preventDefault()}>
+              <form onSubmit={handleSubmit}>
                 <div className="row">
                   <div className="col-md-6">
                     <div className="single-form">
@@ -488,9 +498,8 @@ const ContactPage: React.FC = () => {
                       <button
                         type="submit"
                         className="main-btn"
-                        onClick={handleSubmit}
                         disabled={isSubmitting}>
-                        Submit now
+                        {isSubmitting ? "Submitting..." : "Submit now"}
                       </button>
                     </div>
                   </div>
@@ -501,7 +510,6 @@ const ContactPage: React.FC = () => {
         </div>
       </div>
 
-      {/* ================= CONTACT INFO ================= */}
       <section className="contact-area">
         <div className="container">
           <div className="row">
