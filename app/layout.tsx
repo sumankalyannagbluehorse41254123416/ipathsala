@@ -16,15 +16,20 @@ import "../public/styles/bootstrap.min.css";
 import "../public/styles/animate.css";
 import Newsletter from "@/component/Newsletter";
 import { ToastContainer } from "react-toastify";
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+import { DM_Sans, Exo } from 'next/font/google';
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  variable: '--font-dm-sans',  // Optional, great for Tailwind or CSS variables
+  display: 'swap',
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const exo = Exo({
+  subsets: ['latin'],
+  variable: '--font-exo',
+  display: 'swap',
 });
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -45,7 +50,7 @@ export default function RootLayout({
         />
       </head>
 
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${dmSans.variable} ${exo.variable} ${dmSans.className}`}>
         <ToastContainer
           position="top-center"
           autoClose={4000}

@@ -6961,15 +6961,15 @@ p {
 
 @media only screen and (min-width: 1400px) {
   .teachers-row {
-    margin-left: -40px;
-    margin-right: -40px;
+    margin-left: -40px !important;
+    margin-right: -40px !important;
   }
 }
 
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
   .teachers-row {
-    margin-left: -40px;
-    margin-right: -40px;
+    margin-left: -40px !important;
+    margin-right: -40px !important;
   }
 }
 
@@ -7080,6 +7080,9 @@ p {
   -webkit-transition: all 0.3s linear;
   transition: all 0.3s linear;
 }
+.single-teacher .teacher-content .name{
+  margin-bottom: 0;
+}
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .single-teacher .teacher-content .name a {
@@ -7091,10 +7094,11 @@ p {
   color: #0C8B51;
 }
 
-.single-teacher .teacher-content .designation {
+.single-teacher .teacher-content .designation p{
   font-size: 14px;
   color: #151515;
   font-weight: 500;
+  margin-bottom: 0;
 }
 
 
