@@ -219,6 +219,7 @@
 //     </>
 //   );
 // }
+import AboutusTestimonials from "@/component/AboutusTestimonials";
 import { fetchPageData } from "@/lib/page";
 import Image from "next/image";
 import Link from "next/link";
@@ -373,7 +374,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <section className="testimonials-area">
+      {/* <section className="testimonials-area">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-4">
@@ -386,9 +387,79 @@ export default async function AboutPage() {
                 </p>
               </div>
             </div>
+
+            <div className="col-lg-8">
+              <div className="testimonials-wrapper">
+                <div className="testimonials-shape shape-1" />
+                <div className="testimonials-shape shape-2" />
+                <div className="row no-gutters">
+                  <div className="col-lg-6 col-md-5">
+                    <div className="testimonials-image slick-initialized slick-slider">
+                      <div className="slick-list draggable"><div className="slick-track" style={{ opacity: 1, width: 770 }}><div className="single-testimonial-image slick-slide" data-slick-index={0} aria-hidden="true" tabIndex={-1} style={{ width: 385, position: 'relative', left: 0, top: 0, zIndex: 998, opacity: 0, transition: 'opacity 800ms' }}>
+                        <img src="https://wip.tezcommerce.com:3304/admin/module/49/1649922392776.png" alt="Biswajit Kolya" />
+                      </div><div className="single-testimonial-image slick-slide slick-current slick-active" data-slick-index={1} aria-hidden="false" tabIndex={0} style={{ width: 385, position: 'relative', left: '-385px', top: 0, zIndex: 999, opacity: 1 }}>
+                          <img src="https://wip.tezcommerce.com:3304/admin/module/49/1649922428311.png" alt="Soumita Das" />
+                        </div></div></div>
+                      <span className="next slick-arrow" style={{}}>Next <i className="far fa-long-arrow-right" /></span></div>
+                  </div>
+                  <div className="col-lg-6 col-md-7">
+                    <div className="testimonials-content slick-initialized slick-slider">
+                      <div className="slick-list draggable"><div className="slick-track" style={{ opacity: 1, width: 1925, transform: 'translate3d(-770px, 0px, 0px)' }}><div className="single-testimonial-content slick-slide slick-cloned" data-slick-index={-1} id aria-hidden="true" tabIndex={-1} style={{ width: 385 }}>
+                        <div className="content-text">
+                          <i className="fas fa-quote-right" />
+                          It may sound like a tall order to love what you are doing or learning to do for some of us. But, unfortunately, it’s not easy to find the motivation for that subject you don’t like to study, no matter how many quotes from iconic developers you read!
+                        </div>
+                        <div className="content-meta">
+                          <p className="name">Soumita Das</p>
+                          <p className="designation">Student</p>
+                        </div>
+                      </div><div className="single-testimonial-content slick-slide" data-slick-index={0} aria-hidden="true" tabIndex={-1} style={{ width: 385 }}>
+                          <div className="content-text">
+                            <i className="fas fa-quote-right" />
+                            Even a small improvement in your success could give you the motivational boost you need to study harder next time, kick-starting a virtual cycle of increasingly more success and motivation!
+                          </div>
+                          <div className="content-meta">
+                            <p className="name">Biswajit Kolya</p>
+                            <p className="designation">Student</p>
+                          </div>
+                        </div><div className="single-testimonial-content slick-slide slick-current slick-active" data-slick-index={1} aria-hidden="false" tabIndex={0} style={{ width: 385 }}>
+                          <div className="content-text">
+                            <i className="fas fa-quote-right" />
+                            It may sound like a tall order to love what you are doing or learning to do for some of us. But, unfortunately, it’s not easy to find the motivation for that subject you don’t like to study, no matter how many quotes from iconic developers you read!
+                          </div>
+                          <div className="content-meta">
+                            <p className="name">Soumita Das</p>
+                            <p className="designation">Student</p>
+                          </div>
+                        </div><div className="single-testimonial-content slick-slide slick-cloned" data-slick-index={2} id aria-hidden="true" tabIndex={-1} style={{ width: 385 }}>
+                          <div className="content-text">
+                            <i className="fas fa-quote-right" />
+                            Even a small improvement in your success could give you the motivational boost you need to study harder next time, kick-starting a virtual cycle of increasingly more success and motivation!
+                          </div>
+                          <div className="content-meta">
+                            <p className="name">Biswajit Kolya</p>
+                            <p className="designation">Student</p>
+                          </div>
+                        </div><div className="single-testimonial-content slick-slide slick-cloned" data-slick-index={3} id aria-hidden="true" tabIndex={-1} style={{ width: 385 }}>
+                          <div className="content-text">
+                            <i className="fas fa-quote-right" />
+                            It may sound like a tall order to love what you are doing or learning to do for some of us. But, unfortunately, it’s not easy to find the motivation for that subject you don’t like to study, no matter how many quotes from iconic developers you read!
+                          </div>
+                          <div className="content-meta">
+                            <p className="name">Soumita Das</p>
+                            <p className="designation">Student</p>
+                          </div>
+                        </div></div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
-      </section>
+      </section> */}
+      <AboutusTestimonials/>
     </>
   );
 }
