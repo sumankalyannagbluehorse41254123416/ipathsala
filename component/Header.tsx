@@ -81,23 +81,107 @@
 //   );
 // }
 
+
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 
 const HeaderLandscape = () => {
+  const navRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLElement>(null);
+  const toggleRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null); // Add ref for overlay
+
+  useEffect(() => {
+    const navElement = navRef.current;
+    const menuElement = menuRef.current;
+    const toggleElement = toggleRef.current;
+    const overlayElement = overlayRef.current;
+
+    if (!navElement || !menuElement || !toggleElement || !overlayElement) return;
+
+    // Update landscape/portrait based on screen size
+    const updateNavigationClass = () => {
+      if (window.innerWidth > 991) {
+        navElement.classList.remove("navigation-portrait");
+        navElement.classList.add("navigation-landscape");
+      } else {
+        navElement.classList.remove("navigation-landscape");
+        navElement.classList.add("navigation-portrait");
+      }
+    };
+
+    updateNavigationClass();
+    window.addEventListener("resize", updateNavigationClass);
+
+    // Function to open menu
+    const openMenu = () => {
+      menuElement.classList.add("nav-menus-wrapper-open");
+      overlayElement.style.display = "block";
+      
+      // Enable smooth transition only when opening/closing
+      menuElement.style.transitionProperty = "left";
+      menuElement.style.transitionDuration = "0.6s";
+      menuElement.style.transitionTimingFunction = "ease-in-out";
+    };
+
+    // Function to close menu
+    const closeMenu = () => {
+      menuElement.classList.remove("nav-menus-wrapper-open");
+      overlayElement.style.display = "none";
+
+      menuElement.style.transitionProperty = "left";
+      menuElement.style.transitionDuration = "0.6s";
+      menuElement.style.transitionTimingFunction = "ease-in-out";
+
+      // After closing animation, remove transition to allow instant repositioning on resize
+      const onTransitionEnd = () => {
+        menuElement.style.transitionProperty = "none";
+        menuElement.removeEventListener("transitionend", onTransitionEnd);
+      };
+      menuElement.addEventListener("transitionend", onTransitionEnd);
+    };
+
+    // Toggle handler
+    const handleToggle = () => {
+      if (menuElement.classList.contains("nav-menus-wrapper-open")) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    };
+
+    // Event listeners
+    toggleElement.addEventListener("click", handleToggle);
+
+    const closeButton = menuElement.querySelector(".nav-menus-wrapper-close-button");
+    if (closeButton) {
+      closeButton.addEventListener("click", handleToggle);
+    }
+
+    // Close menu when clicking on overlay
+    overlayElement.addEventListener("click", closeMenu);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("resize", updateNavigationClass);
+      toggleElement.removeEventListener("click", handleToggle);
+      if (closeButton) {
+        closeButton.removeEventListener("click", handleToggle);
+      }
+      overlayElement.removeEventListener("click", closeMenu);
+    };
+  }, []);
+
   return (
     <header className="header-area">
-      {/* Header Top (commented as original HTML) */}
-      {/*
-      <div className="header-top">
-        <div className="container">
-          <div className="header-top-wrapper d-flex flex-wrap justify-content-sm-between">
-          </div>
-        </div>
-      </div>
-      */}
-
-      <div id="navigation" className="navigation sticky navigation-landscape">
+      <div
+        id="navigation"
+        ref={navRef}
+        className="navigation sticky navigation-landscape"
+      >
         <div className="container position-relative">
           <div className="row align-items-center">
             <div className="col-lg-3 col-6">
@@ -115,153 +199,42 @@ const HeaderLandscape = () => {
             </div>
 
             <div className="col-lg-9 col-6">
-              <div className="nav-toggle"></div>
+              <div ref={toggleRef} className="nav-toggle"></div>
 
               <nav
+                ref={menuRef}
                 className="nav-menus-wrapper"
                 id="topManu"
-                style={{ float: "right", transitionProperty: "none" }}>
+                style={{ float: "right", transitionProperty: "none" }}
+              >
                 <span className="nav-menus-wrapper-close-button sidemenu_btn">
                   ✕
                 </span>
 
                 <ul className="nav-menu">
-                  <li>
-                    <Link id="HOME-top" href="/home">
-                      HOME
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link id="about-us-top" href="/about-us" className="active">
-                      ABOUT US
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link id="course-top" href="/hotel-courses">
-                      HOTEL COURSES
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link id="courses-top" href="/software-courses">
-                      SOFTWARE COURSES
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link id="event-top" href="/event">
-                      EVENTS
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link id="contact-us-top" href="/contact-us">
-                      CONTACT US
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link id="APPLY-NOW-top" href="/apply-now">
-                      APPLY NOW
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link id="seminar-top" href="/seminar">
-                      Seminar
-                    </Link>
-                  </li>
+                  <li><Link id="HOME-top" href="/home">HOME</Link></li>
+                  <li><Link id="about-us-top" href="/about-us" className="active">ABOUT US</Link></li>
+                  <li><Link id="course-top" href="/hotel-courses">HOTEL COURSES</Link></li>
+                  <li><Link id="courses-top" href="/software-courses">SOFTWARE COURSES</Link></li>
+                  <li><Link id="event-top" href="/event">EVENTS</Link></li>
+                  <li><Link id="contact-us-top" href="/contact-us">CONTACT US</Link></li>
+                  <li><Link id="APPLY-NOW-top" href="/apply-now">APPLY NOW</Link></li>
+                  <li><Link id="seminar-top" href="/seminar">Seminar</Link></li>
                 </ul>
               </nav>
             </div>
           </div>
+
+          {/* Overlay panel - controlled by JS */}
+          <div
+            ref={overlayRef}
+            className="nav-overlay-panel"
+            style={{
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              display: "none", // Initially hidden
+            }}
+          ></div>
         </div>
-      </div>
-      <div id="navigation" className="navigation sticky navigation-portrait">
-        <div className="container position-relative">
-          <div className="row align-items-center">
-            <div className="col-lg-3 col-6">
-              <div className="header-logo">
-                <Link href="https://www.ipathsala.com">
-                  <Image
-                    src="https://www.ipathsala.com/images/ipathsala-logo.png"
-                    alt="ipathsala-logo"
-                    width={180}
-                    height={60}
-                    priority
-                  />
-                </Link>
-              </div>
-            </div>
-
-            <div className="col-lg-9 col-6">
-              <div className="nav-toggle"></div>
-
-              <nav
-                className="nav-menus-wrapper nav-menus-wrapper-open"
-                id="topManu"
-                style={{ float: "right", transitionProperty: "left" }}>
-                <span className="nav-menus-wrapper-close-button sidemenu_btn">
-                  ✕
-                </span>
-
-                <ul className="nav-menu">
-                  <li>
-                    <Link id="HOME-top" href="/home">
-                      HOME
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link id="about-us-top" href="/about-us" className="active">
-                      ABOUT US
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link id="course-top" href="/hotel-courses">
-                      HOTEL COURSES
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link id="courses-top" href="/software-courses">
-                      SOFTWARE COURSES
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link id="event-top" href="/event">
-                      EVENTS
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link id="contact-us-top" href="/contact-us">
-                      CONTACT US
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link id="APPLY-NOW-top" href="/apply-now">
-                      APPLY NOW
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link id="seminar-top" href="/seminar">
-                      Seminar
-                    </Link>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </div>
-
-        {/* Overlay */}
       </div>
     </header>
   );
