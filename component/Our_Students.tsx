@@ -1,33 +1,47 @@
 "use client";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { fetchPageData } from "@/lib/page";
+import { fetchBlogData } from "@/app/action/blog";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+interface Testimonial {
+  name: string;
+  designation: string;
+  image: string;
+  text: string;
+}
 export default function Testimonials() {
-  const reviews = [
-    {
-      text: "It may sound like a tall order to love what you are doing or learning to do for some of us. But, unfortunately, it’s not easy to find the motivation for that subject you don’t like to study, no matter how many quotes from iconic developers you read!",
-    },
-    {
-      text: "Even a small improvement in your success could give you the motivational boost you need to study harder next time, kick-starting a virtual cycle of increasingly more success and motivation!",
-    },
-  ];
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
 
-  const students = [
-    {
-      img: "https://wip.tezcommerce.com:3304/admin/module/49/1649922305247.png",
-      name: "Soumita Das",
-      designation: "Student",
-    },
-    {
-      img: "https://wip.tezcommerce.com:3304/admin/module/49/1649922320606.png",
-      name: "Biswajit Kolya",
-      designation: "Student",
-    },
-  ];
+  useEffect(() => {
+    const loadTestimonials = async () => {
+      try {
+        const res = await fetchBlogData();
+        // console.log("ress****", res);
 
+        if (!res?.status || !res.userPostdata?.length) return;
+
+        const mappedData: Testimonial[] = res.userPostdata
+          .slice(10, 12)
+          .map((item: any) => ({
+            name: item.author_name,
+            designation: "Student",
+            image: item.featured_image_url || "/images/default-user.png",
+            text: item.excerpt,
+          }));
+
+        setTestimonials(mappedData);
+      } catch (error) {
+        console.error("Failed to load testimonials", error);
+      }
+    };
+
+    loadTestimonials();
+  }, []);
+
+  if (!testimonials.length) return null;
   return (
     <section className="testimonials-area">
       <div className="container">
@@ -42,12 +56,17 @@ export default function Testimonials() {
 
               <div className="testimonials-content">
                 <Swiper modules={[Autoplay]} autoplay={{ delay: 3000 }} loop>
-                  {reviews.map((item, index) => (
+                  {testimonials.map((item, index) => (
                     <SwiperSlide key={index}>
                       <div className="single-testimonial-content">
                         <div className="content-text">
                           <i className="fas fa-quote-right"></i>
-                          {item.text}
+                          <span
+                            dangerouslySetInnerHTML={{
+                              __html: item.text,
+                            }}
+                          />
+                          {/* {item.text} */}
                         </div>
                       </div>
                     </SwiperSlide>
@@ -73,11 +92,11 @@ export default function Testimonials() {
                   }}
                   autoplay={{ delay: 3000 }}
                   loop>
-                  {students.map((student, index) => (
+                  {testimonials.map((student, index) => (
                     <SwiperSlide key={index}>
                       <div className="single-testimonial-image">
                         <Image
-                          src={student.img}
+                          src={student.image}
                           alt={student.name}
                           width={250}
                           height={400}

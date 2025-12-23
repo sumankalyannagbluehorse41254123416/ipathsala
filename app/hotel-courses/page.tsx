@@ -256,7 +256,6 @@ const HotelManagementCourses = async () => {
               {courses.map((course) => (
                 <div className="courses-col" key={course.uuid}>
                   <div className="single-courses-2 courses-list mt-30">
-                    {/* ===== Image ===== */}
                     <div className="courses-image">
                       <a href="javascript:void(0);">
                         <img
@@ -266,7 +265,6 @@ const HotelManagementCourses = async () => {
                       </a>
                     </div>
 
-                    {/* ===== Content ===== */}
                     <div className="courses-content">
                       <div className="courses-content-wrapper">
                         <h4 className="courses-title">
@@ -275,7 +273,6 @@ const HotelManagementCourses = async () => {
 
                         <p style={{ clear: "both" }}></p>
 
-                        {/* Duration / Fees / Eligibility */}
                         <div
                           className="courses-fee"
                           dangerouslySetInnerHTML={{
@@ -285,7 +282,6 @@ const HotelManagementCourses = async () => {
 
                         <p style={{ clear: "both" }}></p>
 
-                        {/* Description */}
                         <div
                           className="duration"
                           dangerouslySetInnerHTML={{
@@ -293,7 +289,6 @@ const HotelManagementCourses = async () => {
                           }}
                         />
 
-                        {/* Apply Button */}
                         <div className="courses-link">
                           <Link className="apply" href={`/apply-now`}>
                             Online Apply

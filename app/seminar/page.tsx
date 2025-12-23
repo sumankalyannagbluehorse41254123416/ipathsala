@@ -335,6 +335,7 @@ const SeminarSection: React.FC = () => {
     organisation: "",
     department: "",
     message: "",
+    rating: "",
   });
 
   const [errors, setErrors] = useState({
@@ -345,6 +346,7 @@ const SeminarSection: React.FC = () => {
     organisation: "",
     department: "",
     message: "",
+    rating: "",
   });
 
   const handleChange = (
@@ -353,6 +355,14 @@ const SeminarSection: React.FC = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: "" }));
+  };
+  const handleRatingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({
+      ...prev,
+      rating: e.target.value,
+    }));
+
+    setErrors((prev) => ({ ...prev, rating: "" }));
   };
 
   const validateForm = () => {
@@ -364,6 +374,7 @@ const SeminarSection: React.FC = () => {
       organisation: "",
       department: "",
       message: "",
+      rating: "",
     };
 
     let isValid = true;
@@ -430,6 +441,7 @@ const SeminarSection: React.FC = () => {
         organisation: "",
         department: "",
         message: "",
+        rating: "",
       });
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -564,9 +576,11 @@ const SeminarSection: React.FC = () => {
                       )}
                     </div>
                   </div>
+
                   <div className="col-md-6">
                     <div className="single-form">
-                      <label>Share you Rating out of 5</label>
+                      <label>Share your Rating out of 5</label>
+
                       <div className="stars">
                         <input
                           className="star star-5"
@@ -574,6 +588,8 @@ const SeminarSection: React.FC = () => {
                           type="radio"
                           value="5"
                           name="rating"
+                          checked={formData.rating === "5"}
+                          onChange={handleRatingChange}
                         />
                         <label className="star star-5" htmlFor="star-5"></label>
 
@@ -583,6 +599,8 @@ const SeminarSection: React.FC = () => {
                           type="radio"
                           value="4"
                           name="rating"
+                          checked={formData.rating === "4"}
+                          onChange={handleRatingChange}
                         />
                         <label className="star star-4" htmlFor="star-4"></label>
 
@@ -592,6 +610,8 @@ const SeminarSection: React.FC = () => {
                           type="radio"
                           value="3"
                           name="rating"
+                          checked={formData.rating === "3"}
+                          onChange={handleRatingChange}
                         />
                         <label className="star star-3" htmlFor="star-3"></label>
 
@@ -601,6 +621,8 @@ const SeminarSection: React.FC = () => {
                           type="radio"
                           value="2"
                           name="rating"
+                          checked={formData.rating === "2"}
+                          onChange={handleRatingChange}
                         />
                         <label className="star star-2" htmlFor="star-2"></label>
 
@@ -610,9 +632,15 @@ const SeminarSection: React.FC = () => {
                           type="radio"
                           value="1"
                           name="rating"
+                          checked={formData.rating === "1"}
+                          onChange={handleRatingChange}
                         />
                         <label className="star star-1" htmlFor="star-1"></label>
                       </div>
+
+                      {errors.rating && (
+                        <span className="text-danger">{errors.rating}</span>
+                      )}
                     </div>
                   </div>
 

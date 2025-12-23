@@ -281,16 +281,16 @@ export default async function AboutPage() {
                 ))}
 
                 <div className="about-icon icon-1">
-                  <img src="" alt="" />
+                  <img src="/Images/aboutUs/1648114950629.png" alt="" />
                 </div>
                 <div className="about-icon icon-2">
-                  <img src="" alt="" />
+                  <img src="/Images/aboutUs/1648114985677.png" alt="" />
                 </div>
                 <div className="about-icon icon-3">
-                  <img src="" alt="" />
+                  <img src="/Images/aboutUs/1648115013485.png" alt="" />
                 </div>
                 <div className="about-icon icon-4">
-                  <img src="" alt="" />
+                  <img src="/Images/aboutUs/1648115041763.png" alt="" />
                 </div>
               </div>
             </div>
@@ -306,7 +306,7 @@ export default async function AboutPage() {
 
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: teamSection?.shortDescription || "",
+                    __html: teamSection?.shortDescription || "/Images/404.png",
                   }}
                 />
               </div>
@@ -459,7 +459,7 @@ export default async function AboutPage() {
           </div>
         </div>
       </section> */}
-      <AboutusTestimonials/>
+      <AboutusTestimonials />
     </>
   );
 }
