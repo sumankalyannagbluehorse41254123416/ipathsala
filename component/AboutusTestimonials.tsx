@@ -116,29 +116,52 @@
 //   );
 // }
 
-"use client"
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Autoplay } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import { fetchBlogData } from "@/app/action/blog";
+
+interface Testimonial {
+  name: string;
+  designation: string;
+  image: string;
+  text: string;
+}
 
 const AboutusTestimonials = () => {
-  const testimonials = [
-    {
-      name: 'Biswajit Kolya',
-      designation: 'Student',
-      image: 'https://wip.tezcommerce.com:3304/admin/module/49/1649922392776.png',
-      text: 'Even a small improvement in your success could give you the motivational boost you need to study harder next time, kick-starting a virtual cycle of increasingly more success and motivation!',
-    },
-    {
-      name: 'Soumita Das',
-      designation: 'Student',
-      image: 'https://wip.tezcommerce.com:3304/admin/module/49/1649922428311.png',
-      text: 'It may sound like a tall order to love what you are doing or learning to do for some of us. But, unfortunately, it’s not easy to find the motivation for that subject you don’t like to study, no matter how many quotes from iconic developers you read!',
-    },
-    // Add more testimonials here if you have more
-  ];
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+
+  useEffect(() => {
+    const loadTestimonials = async () => {
+      try {
+        const res = await fetchBlogData();
+        console.log("ress****", res);
+
+        if (!res?.status || !res.userPostdata?.length) return;
+
+        const mappedData: Testimonial[] = res.userPostdata
+          .slice(10, 12)
+          .map((item: any) => ({
+            name: item.author_name,
+            designation: "Student",
+            image: item.featured_image_url || "/images/default-user.png",
+            text: item.excerpt,
+          }));
+
+        setTestimonials(mappedData);
+      } catch (error) {
+        console.error("Failed to load testimonials", error);
+      }
+    };
+
+    loadTestimonials();
+  }, []);
+
+  if (!testimonials.length) return null;
 
   return (
     <section className="testimonials-area">
@@ -149,32 +172,22 @@ const AboutusTestimonials = () => {
               <h2 className="title">Our Students Review</h2>
               <span className="line"></span>
               <p>
-                Believe in yourself, take on challenges and conquer your
-                fears.
+                Believe in yourself, take on challenges and conquer your fears.
               </p>
             </div>
           </div>
 
           <div className="col-lg-8">
             <div className="testimonials-wrapper position-relative">
-              <div className="testimonials-shape shape-1" />
-              <div className="testimonials-shape shape-2" />
-
               <Swiper
-                modules={[Navigation, Autoplay]}
-                spaceBetween={0}
+                modules={[Navigation]}
                 slidesPerView={1}
-                loop={true}
-                autoplay={{
-                  delay: 5000,
-                  disableOnInteraction: false,
-                }}
+                loop
                 speed={800}
                 navigation={{
-                  nextEl: '.testimonials-next',
-                  prevEl: '.testimonials-prev',
-                }}
-              >
+                  nextEl: ".testimonials-next",
+                  prevEl: ".testimonials-prev",
+                }}>
                 {testimonials.map((item, index) => (
                   <SwiperSlide key={index}>
                     <div className="row no-gutters">
@@ -183,15 +196,22 @@ const AboutusTestimonials = () => {
                           <img src={item.image} alt={item.name} />
                         </div>
                       </div>
+
                       <div className="col-lg-6 col-md-7">
                         <div className="testimonials-content">
                           <div className="single-testimonial-content">
                             <div className="content-text">
-                              <i className="fas fa-quote-right" />
-                              {item.text}
+                              <i className="fa-solid fa-quote-right" />
+                              <span
+                                dangerouslySetInnerHTML={{
+                                  __html: item.text,
+                                }}
+                              />
+                              {/* {item.text} */}
                             </div>
                             <div className="content-meta">
                               <p className="name">{item.name}</p>
+                              <div className="designation" />
                               <p className="designation">{item.designation}</p>
                             </div>
                           </div>
@@ -202,15 +222,9 @@ const AboutusTestimonials = () => {
                 ))}
               </Swiper>
 
-              {/* Custom Next Button - matches your original design */}
               <span className="testimonials-next next slick-arrow">
-                Next <i className="far fa-long-arrow-right" />
+                Next <i className="fa-solid fa-arrow-right" />
               </span>
-
-              {/* Optional Prev Button if you want it */}
-              {/* <span className="testimonials-prev prev slick-arrow">
-                Prev <i className="far fa-long-arrow-left" />
-              </span> */}
             </div>
           </div>
         </div>
