@@ -1,7 +1,104 @@
 "use client";
-import React from "react";
+import { submitFormData } from "@/lib/contact";
+import { error } from "console";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 
-const ApplyNowSection = () => {
+const ApplyNowSection: React.FC = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  });
+
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
+  };
+  const validateForm = () => {
+    const newErrors = {
+      name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
+    };
+    let isValid = true;
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+      isValid = false;
+    }
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+      isValid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Enter a valid email address";
+      isValid = false;
+    }
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Phone is required";
+      isValid = false;
+    }
+    if (!formData.subject.trim()) {
+      newErrors.subject = "Subject is required";
+      isValid = false;
+    }
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
+      isValid = false;
+    }
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isSubmitting) return;
+
+    const isValid = validateForm();
+    if (!isValid) return;
+
+    try {
+      setIsSubmitting(true);
+
+      await submitFormData(
+        {},
+        "d75c49ea-0ac9-4ca5-9f4f-3bba837c9729",
+        formData
+      );
+
+      toast.success("submitted successfully!");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("Your message could not be sent. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <section className="contact-area">
       <input type="hidden" id="titlenew" name="titlenew" value="" />
@@ -12,11 +109,11 @@ const ApplyNowSection = () => {
             <div className="col-lg-8">
               <div className="contact-title text-center">
                 <h3 className="title">APPLY NOW</h3>
-                <p>
+                <div>
                   Here is our event schedule where you can get information about
                   time schedule about this event so it's very easy for you to
                   manage your time and schedule
-                </p>
+                </div>
               </div>
             </div>
           </div>
@@ -24,10 +121,7 @@ const ApplyNowSection = () => {
           <div className="row justify-content-center">
             <div className="col-lg-8">
               <div className="contact-form-wrapper">
-                <form
-                  className="apply_now_form"
-                  action="https://www.ipathsala.com/contact-us/save"
-                  method="post">
+                <form className="apply_now_form" onSubmit={handleSubmit}>
                   <input
                     type="hidden"
                     name="_token"
@@ -42,8 +136,12 @@ const ApplyNowSection = () => {
                           name="name"
                           id="name"
                           placeholder="Name"
+                          value={formData.name}
+                          onChange={handleChange}
                         />
-                        <span id="nameErr" style={{ color: "red" }}></span>
+                        {errors.name && (
+                          <span className="text-danger">{errors.name}</span>
+                        )}
                       </div>
                     </div>
 
@@ -54,8 +152,12 @@ const ApplyNowSection = () => {
                           name="email"
                           id="email"
                           placeholder="E-mail"
+                          value={formData.email}
+                          onChange={handleChange}
                         />
-                        <span id="emailErr" style={{ color: "red" }}></span>
+                        {errors.email && (
+                          <span className="text-danger">{errors.email}</span>
+                        )}
                       </div>
                     </div>
 
@@ -66,14 +168,23 @@ const ApplyNowSection = () => {
                           name="phone"
                           id="mobile"
                           placeholder="Phone"
+                          value={formData.phone}
+                          onChange={handleChange}
                         />
-                        <span id="mobileErr" style={{ color: "red" }}></span>
+                        {errors.phone && (
+                          <span className="text-danger">{errors.phone}</span>
+                        )}
                       </div>
                     </div>
 
                     <div className="col-md-7">
                       <div className="single-form">
-                        <select required name="subject" id="subject">
+                        <select
+                          required
+                          name="subject"
+                          id="subject"
+                          value={formData.subject}
+                          onChange={handleChange as any}>
                           <option value="Diploma In Front Office">
                             Diploma In Front Office
                           </option>
@@ -109,7 +220,9 @@ const ApplyNowSection = () => {
                             Industrial Training on Software Testing
                           </option>
                         </select>
-                        <span id="subjectErr" style={{ color: "red" }}></span>
+                        {errors.subject && (
+                          <span className="text-danger">{errors.subject}</span>
+                        )}
                       </div>
                     </div>
 
@@ -118,17 +231,24 @@ const ApplyNowSection = () => {
                         <textarea
                           name="message"
                           id="message"
-                          placeholder="Write here..."></textarea>
-                        <span id="messageErr" style={{ color: "red" }}></span>
+                          placeholder="Write here..."
+                          value={formData.message}
+                          onChange={handleChange as any}
+                        />
+
+                        {errors.message && (
+                          <span className="text-danger">{errors.message}</span>
+                        )}
                       </div>
                     </div>
 
                     <div className="col-md-12">
                       <div className="single-form text-center">
                         <button
-                          type="button"
+                          type="submit"
                           id="submitBtn"
-                          className="main-btn">
+                          className="main-btn"
+                          disabled={isSubmitting}>
                           Submit now
                         </button>
                       </div>

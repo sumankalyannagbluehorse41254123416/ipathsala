@@ -81,7 +81,6 @@
 //   );
 // }
 
-
 "use client";
 
 import Image from "next/image";
@@ -100,9 +99,9 @@ const HeaderLandscape = () => {
     const toggleElement = toggleRef.current;
     const overlayElement = overlayRef.current;
 
-    if (!navElement || !menuElement || !toggleElement || !overlayElement) return;
+    if (!navElement || !menuElement || !toggleElement || !overlayElement)
+      return;
 
-    // Update landscape/portrait based on screen size
     const updateNavigationClass = () => {
       if (window.innerWidth > 991) {
         navElement.classList.remove("navigation-portrait");
@@ -116,18 +115,15 @@ const HeaderLandscape = () => {
     updateNavigationClass();
     window.addEventListener("resize", updateNavigationClass);
 
-    // Function to open menu
     const openMenu = () => {
       menuElement.classList.add("nav-menus-wrapper-open");
       overlayElement.style.display = "block";
-      
-      // Enable smooth transition only when opening/closing
+
       menuElement.style.transitionProperty = "left";
       menuElement.style.transitionDuration = "0.6s";
       menuElement.style.transitionTimingFunction = "ease-in-out";
     };
 
-    // Function to close menu
     const closeMenu = () => {
       menuElement.classList.remove("nav-menus-wrapper-open");
       overlayElement.style.display = "none";
@@ -136,7 +132,6 @@ const HeaderLandscape = () => {
       menuElement.style.transitionDuration = "0.6s";
       menuElement.style.transitionTimingFunction = "ease-in-out";
 
-      // After closing animation, remove transition to allow instant repositioning on resize
       const onTransitionEnd = () => {
         menuElement.style.transitionProperty = "none";
         menuElement.removeEventListener("transitionend", onTransitionEnd);
@@ -144,7 +139,6 @@ const HeaderLandscape = () => {
       menuElement.addEventListener("transitionend", onTransitionEnd);
     };
 
-    // Toggle handler
     const handleToggle = () => {
       if (menuElement.classList.contains("nav-menus-wrapper-open")) {
         closeMenu();
@@ -153,18 +147,17 @@ const HeaderLandscape = () => {
       }
     };
 
-    // Event listeners
     toggleElement.addEventListener("click", handleToggle);
 
-    const closeButton = menuElement.querySelector(".nav-menus-wrapper-close-button");
+    const closeButton = menuElement.querySelector(
+      ".nav-menus-wrapper-close-button"
+    );
     if (closeButton) {
       closeButton.addEventListener("click", handleToggle);
     }
 
-    // Close menu when clicking on overlay
     overlayElement.addEventListener("click", closeMenu);
 
-    // Cleanup
     return () => {
       window.removeEventListener("resize", updateNavigationClass);
       toggleElement.removeEventListener("click", handleToggle);
@@ -180,13 +173,12 @@ const HeaderLandscape = () => {
       <div
         id="navigation"
         ref={navRef}
-        className="navigation sticky navigation-landscape"
-      >
+        className="navigation sticky navigation-landscape">
         <div className="container position-relative">
           <div className="row align-items-center">
             <div className="col-lg-3 col-6">
               <div className="header-logo">
-                <Link href="https://www.ipathsala.com">
+                <Link href="/">
                   <Image
                     src="https://www.ipathsala.com/images/ipathsala-logo.png"
                     alt="ipathsala-logo"
@@ -205,21 +197,52 @@ const HeaderLandscape = () => {
                 ref={menuRef}
                 className="nav-menus-wrapper"
                 id="topManu"
-                style={{ float: "right", transitionProperty: "none" }}
-              >
+                style={{ float: "right", transitionProperty: "none" }}>
                 <span className="nav-menus-wrapper-close-button sidemenu_btn">
                   ✕
                 </span>
 
                 <ul className="nav-menu">
-                  <li><Link id="HOME-top" href="/home">HOME</Link></li>
-                  <li><Link id="about-us-top" href="/about-us" className="active">ABOUT US</Link></li>
-                  <li><Link id="course-top" href="/hotel-courses">HOTEL COURSES</Link></li>
-                  <li><Link id="courses-top" href="/software-courses">SOFTWARE COURSES</Link></li>
-                  <li><Link id="event-top" href="/event">EVENTS</Link></li>
-                  <li><Link id="contact-us-top" href="/contact-us">CONTACT US</Link></li>
-                  <li><Link id="APPLY-NOW-top" href="/apply-now">APPLY NOW</Link></li>
-                  <li><Link id="seminar-top" href="/seminar">Seminar</Link></li>
+                  <li>
+                    <Link id="HOME-top" href="/">
+                      HOME
+                    </Link>
+                  </li>
+                  <li>
+                    <Link id="about-us-top" href="/about-us" className="active">
+                      ABOUT US
+                    </Link>
+                  </li>
+                  <li>
+                    <Link id="course-top" href="/hotel-courses">
+                      HOTEL COURSES
+                    </Link>
+                  </li>
+                  <li>
+                    <Link id="courses-top" href="/software-courses">
+                      SOFTWARE COURSES
+                    </Link>
+                  </li>
+                  <li>
+                    <Link id="event-top" href="/event">
+                      EVENTS
+                    </Link>
+                  </li>
+                  <li>
+                    <Link id="contact-us-top" href="/contact-us">
+                      CONTACT US
+                    </Link>
+                  </li>
+                  <li>
+                    <Link id="APPLY-NOW-top" href="/apply-now">
+                      APPLY NOW
+                    </Link>
+                  </li>
+                  <li>
+                    <Link id="seminar-top" href="/seminar">
+                      Seminar
+                    </Link>
+                  </li>
                 </ul>
               </nav>
             </div>
@@ -232,8 +255,7 @@ const HeaderLandscape = () => {
             style={{
               backgroundColor: "rgba(0, 0, 0, 0.5)",
               display: "none", // Initially hidden
-            }}
-          ></div>
+            }}></div>
         </div>
       </div>
     </header>
