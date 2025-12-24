@@ -195,16 +195,12 @@ export default function HomeSlider() {
 
                   <ul className="slider-btn">
                     <li>
-                      <a
-                        className="main-btn main-btn-2"
-                        href="https://www.ipathsala.com/hotel-courses">
+                      <a className="main-btn main-btn-2" href="/hotel-courses">
                         View Courses
                       </a>
                     </li>
                     <li>
-                      <a
-                        className="main-btn"
-                        href="https://www.ipathsala.com/about-us">
+                      <a className="main-btn" href="/about-us">
                         Learn more
                       </a>
                     </li>

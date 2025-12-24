@@ -184,7 +184,7 @@ const ApplyNowSection: React.FC = () => {
                           name="subject"
                           id="subject"
                           value={formData.subject}
-                          onChange={handleChange as any}>
+                          onChange={handleChange}>
                           <option value="Diploma In Front Office">
                             Diploma In Front Office
                           </option>
