@@ -5120,7 +5120,7 @@ p {
 
 
 /*===========================
-     10. Counter css 
+    10. Counter css 
 ===========================*/
 
 @media (max-width: 767px) {
@@ -7080,7 +7080,8 @@ p {
   -webkit-transition: all 0.3s linear;
   transition: all 0.3s linear;
 }
-.single-teacher .teacher-content .name{
+
+.single-teacher .teacher-content .name {
   margin-bottom: 0;
 }
 
@@ -7094,7 +7095,7 @@ p {
   color: #0C8B51;
 }
 
-.single-teacher .teacher-content .designation p{
+.single-teacher .teacher-content .designation p {
   font-size: 14px;
   color: #151515;
   font-weight: 500;

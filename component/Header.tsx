@@ -180,7 +180,7 @@ const HeaderLandscape = () => {
               <div className="header-logo">
                 <Link href="/">
                   <Image
-                    src="https://www.ipathsala.com/images/ipathsala-logo.png"
+                    src="/Images/ipathsala-logo.png"
                     alt="ipathsala-logo"
                     width={180}
                     height={60}
