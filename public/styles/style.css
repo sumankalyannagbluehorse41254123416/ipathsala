@@ -1,59 +1,5 @@
 @charset "UTF-8";
 
-/*-----------------------------------------------------------------------------------
-
-    Template Name: Edumate Education HTML Template
-    Template URI: 
-    Description: Edumate Education HTML Template
-    Author: HasTech
-    Author URI: https://themeforest.net/user/hastech
-    Support: https://hasthemes.com/contact-us/
-    Version: 1.0.2
-
------------------------------------------------------------------------------------
-
-    CSS INDEX
-    ===================
-
-    01. Theme default CSS
-	02. Header css 
-    03. Slider css 
-	04. Features css 
-    05. Top Courses css 
-    06. Specialty css
-    07. Campus Visit css  
-    08. Event css 
-    09. Testimonials css 
-    10. Counter css 
-    11. Blog css 
-    12. Newsletter css 
-    13. Footer css 
-    14. About css 
-    15. Inline Library css 
-    16. Page Banner css 
-    17. Teachers css 
-    18. Courses Sidebar css 
-    19. Courses Details css 
-    20. Event Details css 
-    21. Gallery css 
-    22. Teachers Details css 
-    23. Shop Sidebar css 
-    24. Product Details css 
-    25. Blog Sidebar css
-    26. Blog Details css 
-    27. Contact css 
-    28. FAQ's css 
-    29. Login & Register css 
-    30. Notice css 
-
-
------------------------------------------------------------------------------------*/
-
-
-/*===========================
-    1. COMMON css 
-===========================*/
-
 @import url("https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500;600;700;800&display=swap");
 
 body {
@@ -428,6 +374,8 @@ p {
   }
 }
 
+
+
 .section-title p {
   font-weight: 500;
   font-size: 18px;
@@ -579,6 +527,7 @@ p {
     width: 40px;
   }
 }
+
 
 
 /*===== All Form, Radio & Checkbox Style =====*/
@@ -887,8 +836,19 @@ p {
     -o-transform: translate3d(0, 0, 0);
   }
 }
+.time,
+.time * {
+  color: #000 !important;   /* change to any color */
+}
+.event-title,
+.event-title * {
+  color: #000 !important;   /* change to any color */
+}
 
-
+.single-event:hover,
+.single-event:hover * {
+  color: #fff !important;
+}
 /*===========================
     02. Header css 
 ===========================*/

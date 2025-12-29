@@ -154,6 +154,7 @@ export default function HomeSlider() {
               item.status === "active" && item.collection === "Home Banner"
           );
           // console.log("activeHeroBanners", activeHeroBanners);
+          // console.log("activeHeroBanners", activeHeroBanners);
 
           setSlides(activeHeroBanners);
         }
