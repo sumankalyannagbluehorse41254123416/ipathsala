@@ -18,7 +18,9 @@ export default async function HotelManagement() {
           <div className="col-lg-12 col-md-12 col-sm-12">
             <div className="section-title mt-40">
               <h2 className="title">{res?.pagedata?.title}</h2>
-              <div
+              {/* <p>dsaaaaaaaaaaaaaaaaaaaaaaaaaaa</p> */}
+              <span
+                className="course"
                 dangerouslySetInnerHTML={{ __html: res.pagedata.description }}
               />
             </div>
