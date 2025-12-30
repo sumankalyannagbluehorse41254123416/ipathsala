@@ -77,6 +77,21 @@ h4 {
   font-size: 22px;
 }
 
+.content-meta * {
+  color: #000;
+
+}
+
+/* 
+.name {
+  border-right: 2px solid black;
+  padding-right: 20px;
+} */
+
+.designation {
+  margin-left: 20px;
+}
+
 .courses-title {
   /* width: 50%; */
 }
@@ -836,19 +851,24 @@ p {
     -o-transform: translate3d(0, 0, 0);
   }
 }
+
 .time,
 .time * {
-  color: #000 !important;   /* change to any color */
+  color: #000 !important;
+  /* change to any color */
 }
+
 .event-title,
 .event-title * {
-  color: #000 !important;   /* change to any color */
+  color: #000 !important;
+  /* change to any color */
 }
 
 .single-event:hover,
 .single-event:hover * {
   color: #fff !important;
 }
+
 /*===========================
     02. Header css 
 ===========================*/
@@ -1122,9 +1142,9 @@ p {
   }
 }
 
-.navigation .nav-menus-wrapper .nav-menu li a.active {
+/* .navigation .nav-menus-wrapper li a.active {
   color: #0C8B51;
-}
+} */
 
 .navigation .nav-menus-wrapper .nav-menu li:hover>a {
   color: #0C8B51;
@@ -5779,12 +5799,12 @@ p {
 }
 
 .newsletter-wrapper {
-  padding: 20px 70px 45px;
+  padding: 20px 0px 45px;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .newsletter-wrapper {
-    padding: 20px 50px 45px;
+    padding: 20px 0px 45px;
   }
 }
 
@@ -6284,8 +6304,8 @@ p {
 }
 
 .about-image .single-image.image-1 {
-  top: 32px;
-  right: 8px;
+  top: 20px;
+  right: 320px;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -6318,8 +6338,8 @@ p {
 }
 
 .about-image .single-image.image-2 {
-  top: 58%;
-  left: 28%;
+  top: 63%;
+  left: 37%;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -6350,8 +6370,8 @@ p {
 }
 
 .about-image .single-image.image-3 {
-  top: 35%;
-  left: 0px;
+  top: 37%;
+  left: -10px;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -6391,7 +6411,7 @@ p {
 
 .about-image .single-image.image-4 {
   top: 37px;
-  left: 0%;
+  left: 36%;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -7037,6 +7057,7 @@ p {
   font-size: 18px;
   font-weight: 600;
   color: #07294D;
+
   -webkit-transition: all 0.3s linear;
   transition: all 0.3s linear;
 }
