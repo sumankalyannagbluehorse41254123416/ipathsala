@@ -211,7 +211,7 @@ const AboutusTestimonials = () => {
                             </div>
                             <div className="content-meta">
                               <p className="name">{item.name}</p>
-                              <div className="designation" />
+                              {/* <div className="designation" /> */}
                               <p className="designation">{item.designation}</p>
                             </div>
                           </div>

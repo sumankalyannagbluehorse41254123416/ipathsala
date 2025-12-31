@@ -1,4 +1,5 @@
 import { fetchPageData } from "@/lib/page";
+import AboutImage from "./AboutImage";
 
 export default async function AboutSection() {
   const UID = "fc859837-6c9b-43d0-85da-b5b364850611";
@@ -32,8 +33,8 @@ export default async function AboutSection() {
               </div>
             </div>
           </div>
-
-          <div className="col-lg-5">
+          <AboutImage />
+          {/* <div className="col-lg-5">
             <div className="about-image mt-50">
               <div className="single-image image-1">
                 <img src={section[0]?.image} alt="image1" />
@@ -79,7 +80,7 @@ export default async function AboutSection() {
                 />
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

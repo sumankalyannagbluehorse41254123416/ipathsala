@@ -172,7 +172,6 @@ export default function Testimonials() {
     <section className="testimonials-area">
       <div className="container">
         <div className="row">
-          {/* LEFT SIDE – TEXT SLIDER */}
           <div className="col-lg-6">
             <div className="testimonial-wrapper-2 mt-40">
               <div className="section-title-2">
@@ -207,7 +206,6 @@ export default function Testimonials() {
             </div>
           </div>
 
-          {/* RIGHT SIDE – IMAGE SLIDER */}
           <div className="col-lg-6">
             <div className="testimonial-wrapper-2">
               <div className="testimonials-imatestimonials-image testimonials-image slick-initialized slick-sliderge">
@@ -237,8 +235,12 @@ export default function Testimonials() {
                           width={250}
                           height={400}
                         />
-                        <div className="content-meta tesConMeta">
+                        <div className="content-meta tesConMeta d-flex">
                           <p className="name">{student.name}</p>
+                          {/* <p className="designation">{student.designation}</p> */}
+                          {/* <p className="designation">{student.designation}</p> */}
+                          {/* <p className="designation">{student.designation}</p> */}
+                          {/* <p className="designation">{student.designation}</p> */}
                           <p className="designation">{student.designation}</p>
                         </div>
                       </div>
