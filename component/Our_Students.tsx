@@ -99,6 +99,7 @@ export default function Testimonials() {
                         />
                         <div className="content-meta tesConMeta d-flex">
                           <p className="name">{student.name}</p>
+                          {/* <p className="designation">{student.designation}</p> */}
                           <p className="designation">{student.designation}</p>
                         </div>
                       </div>
